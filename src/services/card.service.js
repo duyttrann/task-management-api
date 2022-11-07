@@ -1,12 +1,15 @@
 import { CardModel } from "../models/card.model"
+import { ColumnModel } from "../models/column.model"
+
 import { HttpStatusCode } from "../utilities/constants"
 
 
 const createNew = async (data) => {
     try {
-        const result = await CardModel.createNew(data)
-        return result
-        console.log(data)
+        const newCard = await CardModel.createNew(data)
+        
+        await ColumnModel.pushCardOrder(newCard.columnId.toString(), newCard._id.toString())
+        return newCard
        
     } catch (error) {
         throw new Error(error)
