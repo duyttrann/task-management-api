@@ -1,5 +1,5 @@
 import Joi, { date } from "joi";
-import { ObjectID } from "mongodb";
+import { ObjectId } from "mongodb";
 import { getDB } from "../confiq/mongoDB";
 
 //define Column collection
@@ -18,10 +18,18 @@ const validateSchema = async (data) => {
     return await columnCollectionSchema.validateAsync(data, {abortEarly:false})
 }
 
+const getColumnCollectionname = () =>{
+    return columnCollectionName
+}
+
 const createNew = async (data) => {
     try {
         const value = await validateSchema(data)
-        const result = await getDB().collection(columnCollectionName).insertOne(value)
+        const insertValue = {
+            ...value,
+            boardId: ObjectId(value.boardId)
+        }
+        const result = await getDB().collection(columnCollectionName).insertOne(insertValue)
        
         const result2 = await getDB().collection(columnCollectionName).findOne(result.insertedId)
         
@@ -33,10 +41,32 @@ const createNew = async (data) => {
 }
 
 
+/**
+ * 
+ * @param {string} columnId 
+ * @param {string} newCardId 
+ */
+ const pushCardOrder = async (columnId, newCardId)=>{
+    try {
+        const result = await getDB().collection(columnCollectionName).findOneAndUpdate(
+            {_id:ObjectId(columnId) },
+            {$push: {CardOrder: newCardId}},
+            {returnOriginal: false}
+        )
+
+        return result.value
+      
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+
+
 const update = async (id, data) => {
     try {
         const result = await getDB().collection(columnCollectionName).findOneAndUpdate(
-            {_id:ObjectID(id) },
+            {_id:ObjectId(id) },
             {$set: data},
             {returnOriginal: false}
         )
@@ -49,4 +79,4 @@ const update = async (id, data) => {
     }
 }
 
-export const ColumnModel = {createNew, update} 
+export const ColumnModel = {columnCollectionName ,createNew,pushCardOrder, update} 

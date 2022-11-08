@@ -1,4 +1,5 @@
 import Joi, { date } from "joi";
+import { ObjectId } from "mongodb";
 import { getDB } from "../confiq/mongoDB";
 
 //define card collection
@@ -21,7 +22,13 @@ const validateSchema = async (data) => {
 const createNew = async (data) => {
     try {
         const value = await validateSchema(data)
-        const result = await getDB().collection(cardCollectionName).insertOne(value)
+        console.log(value)
+        const insertValue = {
+            ...value,
+            boardId: ObjectId(value.boardId),
+            columnId: ObjectId(value.columnId)
+        }
+        const result = await getDB().collection(cardCollectionName).insertOne(insertValue)
        
         const result2 = await getDB().collection(cardCollectionName).findOne(result.insertedId)
         
@@ -32,4 +39,4 @@ const createNew = async (data) => {
     }
 }
 
-export const CardModel = {createNew} 
+export const CardModel = {cardCollectionName,createNew} 
