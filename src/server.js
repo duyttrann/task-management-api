@@ -1,5 +1,7 @@
 import express from 'express'
 
+import cors from 'cors'
+import { corsOptions } from 'cors'
 import { connectDB, getDB } from './confiq/mongoDB.js'
 import { env } from './confiq/environment.js'
 import { apiV1 } from './routes/v1/index.js'
@@ -15,6 +17,11 @@ connectDB()
     })
 const bootServer = () => {
     const app = express()
+
+ 
+
+
+      app.use(cors(corsOptions))  
 
     //Enable req.body data
     app.use(express.json())
