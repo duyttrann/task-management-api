@@ -39,4 +39,30 @@ const createNew = async (data) => {
     }
 }
 
-export const CardModel = {cardCollectionName,createNew} 
+
+/**
+ * 
+ * @param {Array of string card id} ids 
+ */
+const deleteMany = async (ids) => {
+    try {
+            console.log('hihihi')
+        // need to convert ids to ObjectId first by mapping
+        const transformIds = ids.map(i => ObjectId(i))
+        console.log(transformIds)
+        const result = await getDB().collection(cardCollectionName).update(
+            {   _id: { $in: transformIds} },
+            { $set: { _destroy: true}}
+        )
+console.log('hahahahaha')
+        console.log(result)
+
+        console.log('-----')
+        return result
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+export const CardModel = {cardCollectionName,createNew,
+    deleteMany} 
