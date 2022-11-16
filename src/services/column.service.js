@@ -17,7 +17,7 @@ const createNew = async (data) => {
         const boardId = newColumn.boardId.toString()
         const newColumnId = newColumn._id.toString()
         const updatedBoard = await BoardModel.pushColumnOrder(boardId, newColumnId)
-       console.log(updatedBoard)
+
         return newColumn
        
     } catch (error) {
@@ -33,7 +33,7 @@ const update = async (id, data) => {
 
         const updateData = {
             ...data,
-            updateAt: Date.now()
+            updatedAt: Date.now()
         }
 
         if(updateData._id) delete updateData._id
@@ -41,6 +41,7 @@ const update = async (id, data) => {
 
         const updatedColumn = await ColumnModel.update(id, updateData)
         
+      
         //remove case
         if (updatedColumn._destroy) {
             console.log('-----------------------')
@@ -52,7 +53,6 @@ const update = async (id, data) => {
         return updatedColumn
        
     } catch (error) {
-        console.log(error)
         throw new Error(error)
         
     }

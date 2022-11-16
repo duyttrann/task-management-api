@@ -67,9 +67,16 @@ const update = async (id, data) => {
     try {
 
         const updateData = {
-            ...data,
-            boardId : ObjectId(data.boardId)
+            ...data
         }
+
+        if (data.boardId) {
+            updateData.boardId = ObjectId(data.boardId)
+        }
+
+
+        console.log('-----MODAL----')
+        console.log(updateData)
 
         const result = await getDB().collection(columnCollectionName).findOneAndUpdate(
             {_id:ObjectId(id) },
@@ -77,9 +84,16 @@ const update = async (id, data) => {
             {returnOriginal: false}
         )
        
-        console.log(result)
-        return result.value
-        // return result.ops[0]
+
+        const resultDeleteCase = await getDB().collection(columnCollectionName).findOne(result.insertedId)
+        
+        if(resultDeleteCase._destroy) {
+            return resultDeleteCase
+        }else{
+            return result.value
+        }
+      
+
     } catch (error) {
         throw new Error(error)
     }
