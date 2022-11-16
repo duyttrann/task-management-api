@@ -84,7 +84,7 @@ const update = async (id, data) => {
             {returnOriginal: false}
         )
        
-
+        //delete case 
         const resultDeleteCase = await getDB().collection(columnCollectionName).findOne(result.insertedId)
         
         if(resultDeleteCase._destroy) {
