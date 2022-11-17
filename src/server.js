@@ -46,8 +46,13 @@ const bootServer = () => {
         res.end('<h1>dcdcd</h1>')
     }) */
     
-    app.listen(env.APP_PORT,env.APP_HOST, () => {
-        console.log(`Running at ${env.APP_HOST}:${env.APP_PORT}/`)
+    // app.listen(env.APP_PORT,env.APP_HOST, () => {
+    //     console.log(`Running at ${env.APP_HOST}:${env.APP_PORT}/`)
+        
+    // })
+
+    app.listen( process.env.PORT, () => {
+        console.log(`Running at ${ process.env.PORT}:${env.APP_PORT}/`)
         
     })
 }
