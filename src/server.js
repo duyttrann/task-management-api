@@ -2,7 +2,7 @@ import express from 'express'
 
 import cors from 'cors'
 import { corsOptions } from 'cors'
-import { connectDB, getDB } from './confiq/mongoDB.js'
+import { connectDB, getDB } from './confiq/mongodb.js'
 import { env } from './confiq/environment.js'
 import { apiV1 } from './routes/v1/index.js'
 import {BoardModel} from './models/board.model.js' 
@@ -52,7 +52,7 @@ const bootServer = () => {
     // })
 
     app.listen( process.env.PORT, () => {
-        console.log(`Running at ${ process.env.PORT}:${env.APP_PORT}/`)
+        console.log(`Running at ${ process.env.PORT}`)
         
     })
 }
