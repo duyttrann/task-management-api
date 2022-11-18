@@ -1,6 +1,6 @@
 import Joi, { date } from "joi";
 import { ObjectId } from "mongodb";
-import { getDB } from "../confiq/mongoDB";
+import { getDB } from "../confiq/mongodb";
 
 //define card collection
 const cardCollectionName = 'cards'

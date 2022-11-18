@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 import Joi, { date } from "joi";
-import { getDB } from "../confiq/mongoDB";
+import { getDB } from "../confiq/mongodb";
 import {ColumnModel} from './column.model'
 import { CardModel } from "./card.model";
 
