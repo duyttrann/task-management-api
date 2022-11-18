@@ -5,3 +5,9 @@ export const HttpStatusCode = {
     NOT_FOUND: 404,
     INTERNAL_SERVER:500
 }
+
+export const WHITELIST_DOMAINS = [
+    'http://localhost:3000'
+    ,
+    'https://task-management-9a4f8.web.app/'
+]
