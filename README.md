@@ -1,5 +1,5 @@
 # Nodejs  +ExpressJs +mongodb
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the backend code of https://github.com/duyttrann/task-management. So glad that finnaly it worked in prod..You must know the quotes " It has worked on my local!", right?
 
 ## Available Scripts
 
